@@ -20,7 +20,7 @@ namespace Presentation
             GlobalConfiguration.Configure(WebApiConfig.Register);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-
+            AutofacConfig.Configure();
         }
         protected void Application_PostAuthorizeRequest()
         {

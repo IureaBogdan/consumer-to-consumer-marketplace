@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Web.Http;
 using ViewModels.Account;
-using BusinessLogic.Services;
 using System.Linq;
+using BusinessLogic.Services.Interfaces;
+
 namespace Presentation.Controllers.API
 {
     public class AccountController : ApiController
     {
-        private readonly AccountService _accountService;
+        private readonly IAccountService _accountService;
 
-        public AccountController()
+        public AccountController(IAccountService accountService)
         {
-            _accountService = new AccountService();
+            _accountService = accountService;
         }
 
         [HttpGet]

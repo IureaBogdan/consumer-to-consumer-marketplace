@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Web.Mvc;
-using BusinessLogic.Services;
+using BusinessLogic.Services.Interfaces;
 using DataAccess.Entities;
 using ViewModels.Account;
 using ViewModels.Offer;
@@ -11,13 +11,13 @@ namespace Presentation.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly AccountService _accountService;
-        private readonly  OfferService _offerService;
+        private readonly IAccountService _accountService;
+        private readonly  IOfferService _offerService;
 
-        public AccountController()
+        public AccountController(IAccountService accountService, IOfferService offerService)
         {
-            _accountService = new AccountService();
-            _offerService = new OfferService();
+            _accountService = accountService;
+            _offerService = offerService;
         }
         public ActionResult Index()
         {

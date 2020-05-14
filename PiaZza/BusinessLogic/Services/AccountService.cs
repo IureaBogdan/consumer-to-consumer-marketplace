@@ -10,17 +10,20 @@ using System.Collections.Generic;
 using System.Linq;
 using ViewModels.Account;
 using DataAccess.UnitOfWork;
+using BusinessLogic.Services.Interfaces;
+using DataAccess.Repositories.Interfaces;
+using DataAccess.UnitOfWork.Interfaces;
+
 namespace BusinessLogic.Services
 {
-    public class AccountService
+    public class AccountService : IAccountService
     {
-        private AccountRepository _accountRepository;
-        private UnitOfWork _unitOfWork;
-        public AccountService()
+        private readonly IAccountRepository _accountRepository;
+        private readonly IUnitOfWork _unitOfWork;
+        public AccountService(IAccountRepository accountRepository,IUnitOfWork unitOfWork)
         {
-            PiazzaDbContext dbContext = new PiazzaDbContext();
-            _accountRepository = new AccountRepository(dbContext);
-            _unitOfWork = new UnitOfWork(dbContext);
+            _accountRepository = accountRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public Guid RegisterAccount(AccountCreateViewModel model)
@@ -35,7 +38,7 @@ namespace BusinessLogic.Services
                 Email = model.Email,
                 Password = model.Password,
                 PhoneNumber = model.PhoneNumber,
-                ImageLink= model.ImageLink
+                ImageLink = model.ImageLink
             };
             _accountRepository.Add(accountEntry);
             _unitOfWork.Commit();

@@ -5,21 +5,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Data.Entity;
 using ViewModels.Offer;
+using DataAccess.Repositories.Interfaces;
 
 namespace DataAccess.Repositories
 {
-    public class OfferRepository
+    public class OfferRepository : IOfferRepository
     {
         private readonly PiazzaDbContext _dbContext;
-        private OfferImageRepository _offerImageRepository;
-        public OfferRepository(PiazzaDbContext dbContext)
+        private readonly IOfferImageRepository _offerImageRepository;
+        public OfferRepository(PiazzaDbContext dbContext, IOfferImageRepository offerImageRepository)
         {
             _dbContext = dbContext;
-            _offerImageRepository = new OfferImageRepository(_dbContext);
+            _offerImageRepository = offerImageRepository;
         }
         public IQueryable<Offer> Query()
         {
-            return this._dbContext.Offers.Include(offer=>offer.Account).AsQueryable();
+            return this._dbContext.Offers.Include(offer => offer.Account).AsQueryable();
         }
         public List<Offer> GetAccountOffersById(Guid id)
         {

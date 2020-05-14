@@ -1,7 +1,10 @@
-﻿using DataAccess.Context;
+﻿using BusinessLogic.Services.Interfaces;
+using DataAccess.Context;
 using DataAccess.Entities;
 using DataAccess.Repositories;
+using DataAccess.Repositories.Interfaces;
 using DataAccess.UnitOfWork;
+using DataAccess.UnitOfWork.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,25 +12,23 @@ using ViewModels.Offer;
 
 namespace BusinessLogic.Services
 {
-    public class OfferService
+    public class OfferService : IOfferService
     {
-        private OfferRepository _offerRepository;
-        private AccountRepository _accountRepository;
-        private OfferImageRepository _offerImageRepository;
-        private UnitOfWork _unitOfWork;
-
-        public OfferService()
+        private readonly IOfferRepository _offerRepository;
+        private readonly IAccountRepository _accountRepository;
+        private readonly IOfferImageRepository _offerImageRepository;
+        private readonly IUnitOfWork _unitOfWork;
+        public OfferService(IAccountRepository accountRepository, IOfferRepository offerRepository,
+                                IOfferImageRepository offerImageRepository,IUnitOfWork unitOfWork)
         {
-            var dbContext = new PiazzaDbContext();
-            _accountRepository = new AccountRepository(dbContext);
-            _offerRepository = new OfferRepository(dbContext);
-            _offerImageRepository = new OfferImageRepository(dbContext);
-            _unitOfWork = new UnitOfWork(dbContext);
+            _accountRepository = accountRepository;
+            _offerRepository = offerRepository;
+            _offerImageRepository = offerImageRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public List<Offer> GetAccountOffersById(Guid id)
         {
-            _offerRepository = new OfferRepository(new PiazzaDbContext());
             return _offerRepository.GetAccountOffersById(id);
         }
         public Guid AddOffer(Guid accountId, AccountOfferAddViewModel addOffer)
@@ -48,7 +49,7 @@ namespace BusinessLogic.Services
             _offerRepository.Add(offerEntry);
             return offerEntry.Id;
         }
-        
+
         public Offer GetOfferById(Guid id)
         {
             return _offerRepository.GetOfferById(id);
@@ -108,20 +109,20 @@ namespace BusinessLogic.Services
         public List<Offer> GetOffersByCategory(string category)
         {
             return _offerRepository.Query()
-                .Where(offer=>offer.Category==category)
+                .Where(offer => offer.Category == category)
                 .ToList();
         }
         public List<Offer> GetOffersBySubcategory(string category, string subcategory)
         {
             return _offerRepository.Query()
-                .Where(offer => offer.Category == category 
-                                &&offer.Subcategory==subcategory)
+                .Where(offer => offer.Category == category
+                                && offer.Subcategory == subcategory)
                 .ToList();
         }
         public List<Offer> GetOffersBySearchString(string searchString)
         {
             return _offerRepository.Query()
-                .Where(offer => offer.Title.Contains(searchString) 
+                .Where(offer => offer.Title.Contains(searchString)
                         || offer.Description.Contains(searchString))
                 .ToList();
         }

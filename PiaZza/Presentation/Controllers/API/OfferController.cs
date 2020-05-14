@@ -1,4 +1,4 @@
-﻿using BusinessLogic.Services;
+﻿using BusinessLogic.Services.Interfaces;
 using System;
 using System.Web.Http;
 
@@ -6,11 +6,10 @@ namespace Presentation.Controllers.API
 {
     public class OfferController : ApiController
     {
-        private readonly OfferService _offerService;
-
-        public OfferController()
+        private readonly IOfferService _offerService;
+        public OfferController(IOfferService offerService)
         {
-            _offerService = new OfferService();
+            _offerService = offerService;
         }
 
         [HttpGet]

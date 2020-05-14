@@ -1,15 +1,13 @@
 ﻿using DataAccess.Context;
 using DataAccess.Entities;
-
+using DataAccess.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccess.Repositories
 {
-    public class OfferImageRepository
+    public class OfferImageRepository : IOfferImageRepository
     {
         private readonly PiazzaDbContext _dbContext;
         public OfferImageRepository(PiazzaDbContext dbContext)
@@ -22,7 +20,7 @@ namespace DataAccess.Repositories
         }
         public void AddListOfferImages(ICollection<OfferImage> images)
         {
-            foreach(var image in images)
+            foreach (var image in images)
             {
                 _dbContext.OfferImages.Add(image);
             }
@@ -39,7 +37,8 @@ namespace DataAccess.Repositories
         {
             _dbContext.OfferImages.Remove(offerImage);
         }
-        public OfferImage GetById(Guid id) {
+        public OfferImage GetById(Guid id)
+        {
             return _dbContext.OfferImages
                 .Where(offerImage => offerImage.OfferImageId == id)
                 .FirstOrDefault();

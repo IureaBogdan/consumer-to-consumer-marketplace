@@ -1,4 +1,4 @@
-The script to create the database/insert test data,is also uploaded.
+Scripts to create the database/insert test data,are also uploaded.
 
 This project also contains some test images under "Presentation/UserFiles/..."
 put to be taken over when accessing the web page. The path to them is stored in the database.

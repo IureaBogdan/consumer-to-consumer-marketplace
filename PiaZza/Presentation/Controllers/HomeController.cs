@@ -1,18 +1,17 @@
-﻿using System.IO;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
-using BusinessLogic.Services;
 using ViewModels.Offer;
+using BusinessLogic.Services.Interfaces;
 
 namespace Presentation.Controllers
 {
     public class HomeController : Controller
     {
 
-        private readonly OfferService _offerService;
-        public HomeController()
+        private readonly IOfferService _offerService;
+        public HomeController(IOfferService offerService)
         {
-            _offerService = new OfferService();
+            _offerService = offerService;
         }
 
         public ActionResult Index()

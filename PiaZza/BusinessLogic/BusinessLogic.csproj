@@ -58,6 +58,8 @@
   <ItemGroup>
     <Compile Include="Services\AccountService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Interfaces\IAccountService.cs" />
+    <Compile Include="Services\Interfaces\IOfferService.cs" />
     <Compile Include="Services\OfferService.cs" />
   </ItemGroup>
   <ItemGroup>

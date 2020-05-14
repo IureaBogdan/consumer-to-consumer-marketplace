@@ -1,8 +1,5 @@
-﻿using BusinessLogic.Services;
-using System;
+﻿using BusinessLogic.Services.Interfaces;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using ViewModels.Offer;
 
@@ -10,11 +7,10 @@ namespace Presentation.Controllers
 {
     public class PetsController : Controller
     {
-        private readonly OfferService _offerService;
-
-        public PetsController()
+        private readonly IOfferService _offerService;
+        public PetsController(IOfferService offerService)
         {
-            _offerService = new OfferService();
+            _offerService = offerService;
         }
         public ActionResult Index()
         {

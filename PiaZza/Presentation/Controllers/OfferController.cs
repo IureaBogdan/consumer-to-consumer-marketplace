@@ -1,4 +1,4 @@
-﻿using BusinessLogic.Services;
+﻿using BusinessLogic.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
@@ -9,10 +9,10 @@ namespace Presentation.Controllers
 
     public class OfferController : Controller
     {
-        private readonly OfferService _offerService;
-        public OfferController()
+        private readonly IOfferService _offerService;
+        public OfferController(IOfferService offerService)
         {
-            _offerService = new OfferService();
+            _offerService = offerService;
         }
         public ActionResult Index()
         {

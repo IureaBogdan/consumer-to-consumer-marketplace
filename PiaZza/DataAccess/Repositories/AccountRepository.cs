@@ -1,5 +1,7 @@
 ﻿using DataAccess.Context;
 using DataAccess.Entities;
+using DataAccess.Repositories.Interfaces;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +10,7 @@ using ViewModels.Account;
 
 namespace DataAccess.Repositories
 {
-    public class AccountRepository
+    public class AccountRepository : IAccountRepository
     {
         private readonly PiazzaDbContext _dbContext;
         public AccountRepository(PiazzaDbContext dbContext)
