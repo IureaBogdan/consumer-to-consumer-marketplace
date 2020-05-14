@@ -1,0 +1,43 @@
+﻿@model ViewModels.Account.AccountLoginViewModel
+
+@{
+    ViewBag.Title = "Log in";
+    Layout = "~/Views/Shared/_AddCredentialsLayout.cshtml";
+}
+<div>
+    <div class="login-clean">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control",@type="password" } })
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <text class="ml-3 text-danger">@ViewBag.Message</text>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <div class="btn-group btn-group-sm" role="group">
+                        <input type="submit" style="background-color: rgba(255,139,0,1);" value="Log me in!" class="btn btn-warning rounded" />
+                        <a class="btn btn-dark rounded"  role="Button" href="@Url.Action("CreateAccount", "Account")">Register</a>
+                    </div>
+                </div>
+            </div>
+            <a class="btn btn-link" role="Button" href="@Url.Action("Index", "Home")">Nevermind</a>
+        </div>
+        }
+    </div>
+</div>
+

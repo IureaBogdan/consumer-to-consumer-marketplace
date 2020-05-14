@@ -1,0 +1,49 @@
+﻿@using Presentation.Modules
+@using System.Text.RegularExpressions
+
+@model IEnumerable<ViewModels.Offer.AccountOfferListViewModel>
+@{
+    ViewBag.Title = "My Offers";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="album py-5 mt-5 min-vh-100">
+    <div class="container h-auto">
+        <div class="row">
+            @if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                    <div class="col-md-4">
+                        <div class="card mb-4 shadow-sm">
+                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
+                                <rect width="100%" height="100%" fill="#55595c"></rect>
+                                <title>@Html.DisplayFor(modelItem => item.Title)</title>
+                                <image width="100%" height="100%" xlink:href="@Html.DisplayFor(modelItem => item.ImageLink)"></image>
+                            </svg>
+                            <div class="card-body h-200">
+                                <p class="card-text">@Html.DisplayFor(modelItem => item.Title)</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    @using (Html.BeginForm("DeleteAccountOffer", "Account", new { id = item.Id }))
+                                    {<div class="btn-group btn-group-sm" role="group" aria-label="EditDeleteBtt">
+                                            <a href="@Url.Action("EditOffer", "Account", new { id = item.Id })" class="btn btn-dark" role="button">Edit</a>
+                                            <input type="submit" class="btn btn-danger" value="Delete" />
+                                        </div>
+                                    }
+                                </div>
+                                <div class="row m-0 mt-2 p-0">
+                                    <small class="text-muted w-100">@Html.DisplayFor(model => item.Location)</small>
+                                </div>
+                                <div class="row m-0 p-0">
+                                    <small class="text-muted w-100">@Html.DisplayFor(model => item.Date.Year)</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+@section Scripts{
+}
+

@@ -1,0 +1,98 @@
+﻿@model ViewModels.Offer.AccountOfferAddViewModel
+@using Presentation.Modules
+@{
+    ViewBag.Title = "New offer";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container pt-1">
+    <h1 class="display-4">Add offer details</h1>
+    <hr class="m-1" />
+    @using (Html.BeginForm("AddNewOffer", "Account", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+    {
+        var categories = CategoryDictionary.Dictionary.Keys.ToList();
+        var options = new List<SelectListItem>();
+        var vehicleSubcategories = CategoryDictionary.Dictionary["Electronics"].ToList();
+        var vehicleOptions = new List<SelectListItem>();
+        foreach (var category in categories)
+        {
+            options.Add(
+                new SelectListItem
+                {
+                    Value = category,
+                    Text = category
+                });
+        }
+        foreach (var vehicleSubcategory in vehicleSubcategories)
+        {
+            vehicleOptions.Add(
+                new SelectListItem
+                {
+                    Value = vehicleSubcategory,
+                    Text = vehicleSubcategory
+                });
+        }
+        @Html.AntiForgeryToken()
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.Description, new { @class = "form-control rounded w-100" })
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Location, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.Category, options, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Subcategory, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.Subcategory, vehicleOptions, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Subcategory, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group ml-3">
+                <label for="Image" class="control-label col-md-4 btn btn-warning w-auto" style="background-color: rgba(255,139,0,1);">Upload images</label>
+                <input type="submit" value="Add" class="btn btn-outline-secondary mb-2" />
+                <div class="col-md-10">
+                    <input type="file" name="Image" multiple accept="image/*" id="Image" hidden />
+                </div>
+            </div>
+            <div class="form-group ml-3" id="imagePreview"></div>
+        </div>
+    }
+    @section Scripts{
+        <script src="~/Scripts/appscripts/offer-edit.js"></script>
+        <script src="~/Scripts/appscripts/add-file-info.js"></script>
+    }
+</div>

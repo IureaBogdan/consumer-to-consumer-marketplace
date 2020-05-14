@@ -1,0 +1,60 @@
+﻿@if (Session["UserId"] == null)
+{
+    <div>
+        <nav class="navbar navbar-light navbar-expand-md navigation-clean-button fixed-top" id="mynavbar" style="background-color: rgba(255,139,0,1);">
+            <div class="container">
+                <a class="navbar-brand" href="@Url.Action("Index", "Home")">PiaZza</a>
+                <button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1">
+                    <span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navcol-1">
+                    @using (Html.BeginForm("Results", "Search", FormMethod.Get,new { @class="w-100"})) {
+                        <div class="input-group" id="searchDiv">
+                            <input type="text" class="form-control" name="searchString" placeholder="Search" aria-label="Search" aria-describedby="basic-addon1" id="searchString">
+                        </div>
+                    }
+                    <ul class="nav navbar-nav mr-auto">
+                        <li class="dropdown nav-item">
+                            <a class="dropdown-toggle nav-link text-dark" style="background-color: rgba(255,139,0,1);" data-toggle="dropdown" aria-expanded="false" href="#">MyAccount</a>
+                            <div class="dropdown-menu rounded"  role="menu" style="background-color: rgba(255,139,0,1);">
+                                <a class="dropdown-item" role="presentation" href="@Url.Action("Login", "Account")">Log In</a>
+                                <a class="dropdown-item" role="presentation" href="@Url.Action("CreateAccount", "Account")">Register</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+}
+else
+{
+    <div>
+        <nav class="navbar navbar-light navbar-expand-md navigation-clean-button fixed-top" id="mynavbar" style="background-color: rgba(255,139,0,1);">
+            <div class="container">
+                <a class="navbar-brand" href="@Url.Action("Index", "Home")">PiaZza</a>
+                <button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1">
+                    <span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"> </span>
+                </button>
+                <div class="collapse navbar-collapse" id="navcol-1">
+                    @using (Html.BeginForm("Results", "Search", FormMethod.Get,new { @class="w-100"})) {
+                        <div class="input-group" id="searchDiv">
+                            <input type="text" class="form-control" name="searchString" placeholder="Search" aria-label="Search" aria-describedby="basic-addon1" id="searchString">
+                        </div>
+                    }
+                    <ul class="nav navbar-nav mr-auto">
+                        <li class="dropdown nav-item">
+                            <a class="dropdown-toggle nav-link text-dark" data-toggle="dropdown" aria-expanded="false" href="#">@Session["UserName"]</a>
+                            <div class="dropdown-menu rounded" role="menu" style="background-color: rgba(255,139,0,1);">
+                                <a class="dropdown-item" role="presentation" href="@Url.Action("MyAccount","Account")">My Account</a>
+                                <a class="dropdown-item" role="presentation" href="@Url.Action("MyOffers","Account")">My Offers</a>
+                                <a class="dropdown-item" role="presentation" href="@Url.Action("AddNewOffer","Account")">Add new Offer</a>
+                                <a class="dropdown-item" role="presentation" href="@Url.Action("LogOut","Account")">Log Out</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+}

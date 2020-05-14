@@ -1,0 +1,5 @@
+D:\PROJECTS\BeeNear\PiaZza\PiaZza\ViewModels\bin\Debug\ViewModels.dll
+D:\PROJECTS\BeeNear\PiaZza\PiaZza\ViewModels\bin\Debug\ViewModels.pdb
+D:\PROJECTS\BeeNear\PiaZza\PiaZza\ViewModels\obj\Debug\ViewModels.csprojAssemblyReference.cache
+D:\PROJECTS\BeeNear\PiaZza\PiaZza\ViewModels\obj\Debug\ViewModels.dll
+D:\PROJECTS\BeeNear\PiaZza\PiaZza\ViewModels\obj\Debug\ViewModels.pdb

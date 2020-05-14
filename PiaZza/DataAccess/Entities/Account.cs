@@ -1,0 +1,33 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DataAccess.Entities
+{
+    public class Account
+    {
+
+        #region Properties
+        public Guid AccountId { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string UserName { get; set; }
+        public string Adress { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
+        public string PhoneNumber { get; set; }
+        public string ImageLink {get ;set;}
+        #endregion
+        #region Constructors
+        public Account()
+        {
+            Offers = new List<Offer>();
+        }
+        #endregion
+        #region [ Navigation Properties ]
+        public virtual ICollection<Offer> Offers { get; set; }
+        #endregion
+    }
+}

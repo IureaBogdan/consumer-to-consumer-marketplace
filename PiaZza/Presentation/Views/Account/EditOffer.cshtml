@@ -1,0 +1,124 @@
+﻿@model ViewModels.Offer.AccountOfferEditViewModel
+@using Presentation.Modules
+@{
+    ViewBag.Title = "Edit offer";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var categories = CategoryDictionary.Dictionary.Keys.ToList();
+    var options = new List<SelectListItem>();
+    var vehicleSubcategories = CategoryDictionary.Dictionary["Electronics"].ToList();
+    var vehicleOptions = new List<SelectListItem>();
+    foreach (var category in categories)
+    {
+        options.Add(
+            new SelectListItem
+            {
+                Value = category,
+                Text = category
+            });
+    }
+    foreach (var vehicleSubcategory in vehicleSubcategories)
+    {
+        vehicleOptions.Add(
+            new SelectListItem
+            {
+                Value = vehicleSubcategory,
+                Text = vehicleSubcategory
+            });
+    }
+}
+<div class="container pt-1">
+    @using (Html.BeginForm("EditOffer", "Account", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h1 class="display-4">Edit offer</h1>
+        <hr class="m-1" />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Description, new { @class = "form-control rounded w-100" })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Location, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Category, options, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Subcategory, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Subcategory, vehicleOptions, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Subcategory, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group ml-3">
+            <label for="Image" class="control-label col-md-4 btn btn-warning w-auto" style="background-color: rgba(255,139,0,1);">Add more images</label>
+            <input type="submit" value="Save all changes" class="btn btn-outline-secondary mb-2" />
+            <div class="col-md-10">
+                <input type="file" name="Image" multiple accept="image/*" id="Image" hidden />
+            </div>
+        </div>
+        <div class="form-group ml-3" id="imagePreview"></div>
+
+        <text class="control-label col-md-2">Your image uploads for this offer(Note that deleting an image will automatically remove it)</text>
+        <hr class="m-1" />
+        <div class="row">
+            @foreach (var image in Model.ImageDataDictionary)
+            {
+                <div class="card-deck">
+                    <div class="card" id="@image.Key" style="width: 18rem;">
+                        <img src="@image.Value" class="card-img-top" height="200" alt="@image.Value">
+                        <div class="card-body">
+                            <button class="btn btn-danger btn-sm" onclick="deleteOfferImage('@image.Key', event)">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+    </div>
+    }
+    @{ /* Show offer images and call async delete image   */ }
+
+</div>
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+@section scripts{
+    <script src="~/Scripts/appscripts/add-file-info.js"></script>
+    <script src="~/Scripts/appscripts/offer-edit.js"></script>
+    <script src="~/Scripts/appscripts/offer-image-submit-delete.js"></script>
+}

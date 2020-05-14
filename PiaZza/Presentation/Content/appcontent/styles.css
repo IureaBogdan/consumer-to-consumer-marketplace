@@ -1,0 +1,23 @@
+#mynavbar {
+    top: 0px;
+    transition: top 0.2s;
+}
+
+.h-200{
+    height:200px;
+}
+
+::-webkit-scrollbar {
+    width: 13px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(255,139,0,1);
+}
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255,109,0,1);
+}

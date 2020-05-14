@@ -1,0 +1,62 @@
+﻿@model IEnumerable<ViewModels.Offer.OfferListViewModel>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Fonts/ionicons.min.css" rel="stylesheet" />
+    <link href="~/Content/appcontent/Navigation.css" rel="stylesheet" />
+    <link href="~/Content/appcontent/Footer-Dark.css" rel="stylesheet" />
+    <link href="~/Content/appcontent/styles.css" rel="stylesheet" />
+    <link rel="icon" href="~/favicon.ico" type="image/x-icon" />
+    <link href="~/Content/appcontent/category-bar.css" rel="stylesheet" />
+    <title>@ViewBag.Title</title>
+</head>
+<body class="m-0 p-0" style="background-color:#f1f7fc;">
+    @{Html.RenderPartial("_NavBar");}
+    @{Html.RenderPartial("_CategoryBar"); }
+    <div class="container" style="min-height: 800px;">
+        @RenderBody()
+        <div class="album py-5">
+            <div class="container h-auto mt-5">
+                <div class="row">
+                    @if (Model != null)
+                    {
+                        foreach (var item in Model)
+                        {
+                            <div class="col-md-4">
+                                <div class="card mb-4 shadow-sm">
+                                    <svg class="bd-placeholder-img card-img-top" width="100%" height="225" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
+                                        <rect width="100%" height="100%" fill="#55595c"></rect>
+                                        <title>@Html.DisplayFor(modelItem => item.Title)</title>
+                                        <image width="100%" height="100%" xlink:href="@Html.DisplayFor(modelItem => item.ImageLink)"></image>
+                                    </svg>
+                                    <div class="card-body h-200">
+                                        <p class="card-text">@Html.DisplayFor(modelItem => item.Title)</p>
+                                        <div class="d-flex justify-content-between align-items-center ml-0 w-100">
+                                            <a href="@Url.Action("ViewOffer","Offer",new {id=item.Id})" style="background-color: rgba(255,139,0,1);" class="btn w-100" role="button">@Html.DisplayFor(model => item.Price)$</a>
+                                        </div>
+                                        <small class="text-muted w-100">@Html.DisplayFor(model => item.Location)</small><br />
+                                        <small class="text-muted w-100">@Html.DisplayFor(model => item.Date.Year)</small>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="container mb-3">
+        </div>
+    </div>
+    @{ Html.RenderPartial("_Footer"); }
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous"></script>
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+    <script src="~/Scripts/appscripts/navbar.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>
